@@ -25,8 +25,8 @@ RUN apk --update update && apk upgrade
 RUN apk add --update ffmpeg openrc gnutls x264 libssh2 tar xz bzip2 mysql-client
 
 # Install ffmpeg static build version from cdn.shinobi.video
-RUN wget https://cdn.shinobi.video/installers/ffmpeg-release-64bit-static.tar.xz \
- && tar xpvf ./ffmpeg-release-64bit-static.tar.xz -C ./ \
+RUN wget -q https://cdn.shinobi.video/installers/ffmpeg-release-64bit-static.tar.xz \
+ && tar xpf ./ffmpeg-release-64bit-static.tar.xz -C ./ \
  && cp -f ./ffmpeg-3.3.4-64bit-static/ff* /usr/bin/ \
  && chmod +x /usr/bin/ff* \
  && rm -f ffmpeg-release-64bit-static.tar.xz \
@@ -57,8 +57,8 @@ RUN apk add --virtual .build-dependencies \
   x264-dev \ 
   x265-dev \ 
   yasm-dev \
-  && wget "https://gitlab.com/Shinobi-Systems/ShinobiCE/-/archive/master/ShinobiCE-master.tar.bz2?sha=$SHINOBI_SHA" -O /tmp/shinobi.tar.bz2 \
- && tar -xjpvf /tmp/shinobi.tar.bz2 -C /tmp/shinobi \
+ && wget -q "https://gitlab.com/Shinobi-Systems/ShinobiCE/-/archive/master/ShinobiCE-master.tar.bz2?sha=$SHINOBI_SHA" -O /tmp/shinobi.tar.bz2 \
+ && tar -xjpf /tmp/shinobi.tar.bz2 -C /tmp/shinobi \
  && mv /tmp/shinobi/ShinobiCE-master /opt/shinobi \
  && rm -f /tmp/shinobi.tar.bz2 \
  && cd /opt/shinobi \
