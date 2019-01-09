@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: csdfkjlskjlj3490qiu3t
+      MYSQL_ONETIME_PASSWORD: "true"
+      MYSQL_DATABASE: ccio
+      MYSQL_USER: shinobi_user
+      MYSQL_PASSWORD: password1234
+    volumes:
+      - shinobi_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  shinobi:
+    depends_on:
+      - mysql
+    build: .
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./config:/config
+      - shinobi_videos:/opt/shinobi/videos
+      - /dev/shm/shinobiDockerTemp:/dev/shm/streams
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: ccio
+      MYSQL_USER: shinobi_user
+      MYSQL_PASSWORD: password1234
+
+volumes:
+  shinobi_mysql: {}
+  shinobi_videos: {}

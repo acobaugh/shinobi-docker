@@ -1,0 +1,7 @@
+apps:
+  - script   : '/opt/shinobi/camera.js'
+    name     : 'Camera-App'
+    kill_timeout  : 5000
+  - script   : '/opt/shinobi/cron.js'
+    name     : 'Cron-App'
+    kill_timeout  : 5000

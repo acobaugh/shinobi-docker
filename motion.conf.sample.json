@@ -1,0 +1,7 @@
+{
+  "plug":"Motion",
+  "host":"localhost",
+  "port":8080,
+  "key":"d4b5feb4-8f9c-4b91-bfec-277c641fc5e3",
+  "notice":"Looks like you have the Motion plugin running. Don't forget to enable <b>Send Frames</b> to start pushing frames to be read."
+}

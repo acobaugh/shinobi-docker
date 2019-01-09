@@ -1,0 +1,29 @@
+{
+  "port": 8080,
+  "addStorage": [
+      {"name":"second","path":"__DIR__/videos2"}
+  ],
+  "db": {
+    "host": "127.0.0.1",
+    "user": "majesticflame",
+    "password": "",
+    "database": "ccio",
+    "port":3306
+  },
+  "mail":{
+    "service": "gmail",
+    "auth": {
+        "user": "your_email@gmail.com",
+        "pass": "your_password_or_app_specific_password"
+        }
+  },
+  "cron":{
+      "key":"73ffd716-16ab-40f4-8c2e-aecbd3bc1d30"
+  },
+  "pluginKeys":{
+      "Motion":"d4b5feb4-8f9c-4b91-bfec-277c641fc5e3",
+      "OpenCV":"644bb8aa-8066-44b6-955a-073e6a745c74",
+      "OpenALPR":"9973e390-f6cd-44a4-86d7-954df863cea0"
+  },
+  "productType":"Pro"
+}
