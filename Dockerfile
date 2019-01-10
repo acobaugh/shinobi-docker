@@ -1,8 +1,7 @@
 FROM node:8-alpine 
 
-LABEL Author="MiGoller, mrproper, pschmitt & moeiscool"
-
-ENV SHINOBI_SHA="24de55e45a688021aaede2872e1bc3cef660b1ca"
+ENV SHINOBI_SHA="1763353e00a4e374d35f2c7cfd6646714abe209b"
+ENV SHINOBI_BRANCH="dev"
 
 # Set environment variables to default values
 # ADMIN_USER : the super user login name
@@ -19,10 +18,10 @@ ENV ADMIN_USER=admin@shinobi.video \
 
 
 
-RUN apk --update update && apk upgrade
+RUN apk --update update && apk upgrade --no-cache
 
 # runtime dependencies
-RUN apk add --update ffmpeg openrc gnutls x264 libssh2 tar xz bzip2 mysql-client
+RUN apk add --update --no-cache ffmpeg gnutls x264 libssh2 tar xz bzip2 mariadb-client
 
 # Install ffmpeg static build version from cdn.shinobi.video
 RUN wget -q https://cdn.shinobi.video/installers/ffmpeg-release-64bit-static.tar.xz \
@@ -35,7 +34,7 @@ RUN wget -q https://cdn.shinobi.video/installers/ffmpeg-release-64bit-static.tar
 RUN mkdir -p /config /tmp/shinobi
 
 # Install build dependencies, fetch shinobi, and install
-RUN apk add --virtual .build-dependencies \ 
+RUN apk add --virtual .build-dependencies --no-cache \ 
   build-base \ 
   coreutils \ 
   nasm \
@@ -57,15 +56,15 @@ RUN apk add --virtual .build-dependencies \
   x264-dev \ 
   x265-dev \ 
   yasm-dev \
- && wget -q "https://gitlab.com/Shinobi-Systems/ShinobiCE/-/archive/master/ShinobiCE-master.tar.bz2?sha=$SHINOBI_SHA" -O /tmp/shinobi.tar.bz2 \
+ && wget -q "https://gitlab.com/Shinobi-Systems/Shinobi/-/archive/$SHINOBI_BRANCH/Shinobi-$SHINOBI_BRANCH.tar.bz2?sha=$SHINOBI_SHA" -O /tmp/shinobi.tar.bz2 \
  && tar -xjpf /tmp/shinobi.tar.bz2 -C /tmp/shinobi \
- && mv /tmp/shinobi/ShinobiCE-master /opt/shinobi \
+ && mv /tmp/shinobi/Shinobi-$SHINOBI_BRANCH /opt/shinobi \
  && rm -f /tmp/shinobi.tar.bz2 \
  && cd /opt/shinobi \
  && npm i npm@latest -g \
  && npm install pm2 -g \
  && npm install \
- && apk del --virtual .build-dependencies
+ && apk del --virtual .build-dependencies 
 
 # Copy code
 COPY docker-entrypoint.sh pm2Shinobi.yml conf.sample.json super.sample.json /opt/shinobi/
