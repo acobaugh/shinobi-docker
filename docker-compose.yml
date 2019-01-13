@@ -16,6 +16,7 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
+    command: --innodb-buffer-pool-size=1G --innodb-log-buffer-size=128M
     networks:
       - dualstack
 
