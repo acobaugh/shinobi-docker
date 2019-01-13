@@ -21,7 +21,7 @@ ENV ADMIN_USER=admin@shinobi.video \
 RUN apk --update update && apk upgrade --no-cache
 
 # runtime dependencies
-RUN apk add --update --no-cache ffmpeg gnutls x264 libssh2 tar xz bzip2 mariadb-client
+RUN apk add --update --no-cache ffmpeg gnutls x264 libssh2 tar xz bzip2 mariadb-client ttf-freefont
 
 # Install ffmpeg static build version from cdn.shinobi.video
 RUN wget -q https://cdn.shinobi.video/installers/ffmpeg-release-64bit-static.tar.xz \
