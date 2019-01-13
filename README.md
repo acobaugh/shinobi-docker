@@ -1,6 +1,6 @@
 # Introduction
 
-This is a simplified docker image and docker-compose, based on (https://gitlab.com/Shinobi-Systems/ShinobiDocker)[].
+This is a simplified docker image and docker-compose, based on https://gitlab.com/Shinobi-Systems/ShinobiDocker.
 
 This diverges from upstream in a few ways:
 * Uses the official mysql docker image, and in a separate container rather than running it in the background in the same container as the app
