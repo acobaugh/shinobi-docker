@@ -9,3 +9,12 @@ This diverges from upstream in a few ways:
 * Removes the update step in docker-entrypoint.sh
 
 
+## Setup
+
+1. Create the `shinobi.env` file and populate it if needed:
+
+   `cp shinobi.env.sample shinobi.env` 
+  
+2. Start containers with:
+   
+   `docker-compose up`
