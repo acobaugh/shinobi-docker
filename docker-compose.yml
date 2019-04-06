@@ -2,23 +2,20 @@ version: '3'
 services:
   mysql:
     image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: csdfkjlskjlj3490qiu3t
       MYSQL_ONETIME_PASSWORD: "true"
-      MYSQL_DATABASE: ccio
-      MYSQL_USER: shinobi_user
-      MYSQL_PASSWORD: password1234
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
     volumes:
       - shinobi_mysql:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u$MYSQL_USER", "-p$MYSQL_PASSWORD"]
       timeout: 20s
       retries: 10
     command: --innodb-buffer-pool-size=1G --innodb-log-buffer-size=128M
-    networks:
-      - dualstack
 
   shinobi:
     depends_on:
@@ -29,24 +26,18 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - ./config:/config
-      - /tank/shinobi/videos:/opt/shinobi/videos
+      - ./videos:/opt/shinobi/videos
       - /dev/shm/shinobiDockerTemp:/dev/shm/streams
     ports:
       - "8080:8080"
-    env_file:
-      - ./shinobi.env
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_DATABASE: ccio
-      MYSQL_USER: shinobi_user
-      MYSQL_PASSWORD: password1234
-      utcOffset: "-05:00"
-    networks:
-      - dualstack
+      MYSQL_HOST: "mysql"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      ADMIN_USER: "${ADMIN_USER}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
+      utcOffset: "${utcOffset}"
 
 volumes:
   shinobi_mysql: {}
-
-networks:
-  dualstack:
-    external: true
