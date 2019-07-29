@@ -1,6 +1,6 @@
-FROM node:8-alpine 
+FROM node:10-alpine 
 
-ENV SHINOBI_SHA="1763353e00a4e374d35f2c7cfd6646714abe209b"
+ENV SHINOBI_SHA="9d05ff8e594fbff1f95da1ddb280d04a00b8f8cf"
 ENV SHINOBI_BRANCH="dev"
 
 # Set environment variables to default values
@@ -21,7 +21,8 @@ ENV ADMIN_USER=admin@shinobi.video \
 RUN apk --update update && apk upgrade --no-cache
 
 # runtime dependencies
-RUN apk add --update --no-cache ffmpeg gnutls x264 libssh2 tar xz bzip2 mariadb-client ttf-freefont
+RUN apk add --update --no-cache ffmpeg gnutls x264 libssh2 tar xz bzip2 mariadb-client ttf-freefont ca-certificates wget
+RUN update-ca-certificates
 
 # Install ffmpeg static build version from cdn.shinobi.video
 RUN wget -q https://cdn.shinobi.video/installers/ffmpeg-release-64bit-static.tar.xz \
@@ -64,6 +65,7 @@ RUN apk add --virtual .build-dependencies --no-cache \
  && npm i npm@latest -g \
  && npm install pm2 -g \
  && npm install \
+ && npm install discord.js \
  && apk del --virtual .build-dependencies 
 
 # Copy code
