@@ -63,6 +63,7 @@ cd /opt/shinobi
 node tools/modifyConfiguration.js cpuUsageMarker=CPU >/dev/null
 node tools/modifyConfiguration.js utcOffset=$utcOffset >/dev/null
 node tools/modifyConfiguration.js db="{\"host\": \"$MYSQL_HOST\", \"user\": \"$MYSQL_USER\", \"password\": \"$MYSQL_PASSWORD\", \"database\": \"$MYSQL_DATABASE\", \"port\": \"3306\" }" >/dev/null
+node tools/modifyConfiguration.js addToConfig='{"discordBot":true}' >/dev/null
 
 # Execute Command
 echo "Starting Shinobi ..."
