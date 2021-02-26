@@ -24,7 +24,7 @@ services:
     restart: always
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+      #- /etc/timezone:/etc/timezone:ro
       - ./config:/config
       - ./videos:/opt/shinobi/videos
       - /dev/shm/shinobiDockerTemp:/dev/shm/streams
