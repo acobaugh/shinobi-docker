@@ -1,7 +1,7 @@
-FROM node:10-alpine 
+FROM node:12-alpine 
 
-ENV SHINOBI_SHA="9d05ff8e594fbff1f95da1ddb280d04a00b8f8cf"
-ENV SHINOBI_BRANCH="dev"
+ENV SHINOBI_SHA="010abad7da5e594da0e3fb697c86a753011aa53b"
+ENV SHINOBI_BRANCH="master"
 
 # Set environment variables to default values
 # ADMIN_USER : the super user login name
@@ -65,7 +65,6 @@ RUN apk add --virtual .build-dependencies --no-cache \
  && npm i npm@latest -g \
  && npm install pm2 -g \
  && npm install \
- && npm install discord.js \
  && apk del --virtual .build-dependencies 
 
 # Copy code
