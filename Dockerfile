@@ -39,7 +39,7 @@ RUN apk add --virtual .build-dependencies --no-cache \
   build-base \ 
   coreutils \ 
   nasm \
-  python \
+  python3 \
   make \
   pkgconfig \
   wget \
