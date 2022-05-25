@@ -35,7 +35,7 @@ RUN wget -q https://cdn.shinobi.video/installers/ffmpeg-release-64bit-static.tar
 RUN mkdir -p /config /tmp/shinobi
 
 # Install build dependencies, fetch shinobi, and install
-RUN apk add --virtual .build-dependencies --no-cache \ 
+RUN apk add --no-cache \ 
   build-base \ 
   coreutils \ 
   nasm \
@@ -64,8 +64,7 @@ RUN apk add --virtual .build-dependencies --no-cache \
  && cd /opt/shinobi \
  && npm i npm@latest -g \
  && npm install pm2 -g \
- && npm install \
- && apk del --virtual .build-dependencies 
+ && npm install
 
 # Copy code
 COPY docker-entrypoint.sh pm2Shinobi.yml conf.sample.json super.sample.json /opt/shinobi/
